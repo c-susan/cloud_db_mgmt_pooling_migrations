@@ -1,13 +1,3 @@
-"""
-
-pip install sqlalchemy alembic mysql-connector-python
-pip install pysql   ---> required for azure connection 
-
-"""
-
-## Part 1 - Define SQLAlchemy models for patients and their medical records:
-### this file below could always be called db_schema.py or something similar
-
 from sqlalchemy import create_engine, inspect, Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -16,7 +6,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-databaseURL = os.getenv("DB_URL")
+DB_HOST = os.getenv("DB_HOST")
+DB_DATABASE = os.getenv("DB_DATABASE")
+DB_USERNAME = os.getenv("DB_USERNAME")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_PORT = int(os.getenv("DB_PORT", 3306))
+DB_CHARSET = os.getenv("DB_CHARSET", "utf8mb4")
 
 Base = declarative_base()
 
@@ -44,12 +39,14 @@ class Patient(Base):
 
 
 ### Part 2 - initial sqlalchemy-engine to connect to db:
+                        
+connect_args={'ssl':{'fake_flag_to_enable_tls': True}}
+connection_string = (f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}'
+                    f"?charset={DB_CHARSET}")
+engine = create_engine(
+        connection_string,
+        connect_args=connect_args)
 
-#DATABASE_URL = "mysql+mysqlconnector://root:password@35.184.8.172/susan"
-#engine = create_engine(DATABASE_URL)               This can work with gcp
-engine = create_engine("mysql+pymysql://susan:hhA5041314520@504migrations.mysql.database.azure.com/susan",
-                         connect_args={'ssl': {'ssl-mode': 'preferred'}},
-                         )
 
 ## Test connection
 
