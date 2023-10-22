@@ -24,20 +24,42 @@ I created a new database the MySQL instances:
 1. In the google shell terminal, signed into MySQL with: ```mysql -u <username> -h <host IP address/servername> -p```. 
 2. Created a database called 'susan': ```create database `susan`;```
 3. Ran ```show databases;``` to confirm the database was created and then signed out of MySQL. 
-
-In order to create a new tables, I did the following to create a connection to MySQL: 
-1. Created a .env file to contain my database credentials that contains the following: 
+4. In order to create a new tables, I did the following to create a connection to MySQL: 
++ Created a .env file to contain my database credentials that contains the following: 
 ```
-DB_HOST=504migrations.mysql.database.azure.com
-DB_DATABASE=susan
-DB_USERNAME=susan
-DB_PASSWORD=hhA5041314520
-DB_PORT=3306
-DB_CHARSET=utf8mb4
+DB_HOST = <host IP address / server name>
+DB_DATABASE = <database name>
+DB_USERNAME = <username>
+DB_PASSWORD = <password>
+DB_PORT = 3306
+DB_CHARSET = utf8mb4
+``` 
+5. Created a ```.gitignore``` file to hide the contents of my ```.env```. 
+6. In both my .py files, I had to include the following code in order to connect to MySQL instances: 
+```
+from dotenv import load_dotenv 
+import os
 
+load_dotenv()
 
-For both the azure and gcp MySQL instances, I created the same database name and the same tables in a .py file. The first is a ```doctors``` table that includes data on doctor IDs, their names, the department they work in, and their phone number. The second table is a ```patients``` table and contains patient IDs, their names, date of birth, and their primary doctor ID, which references the doctor ID in the doctors table. I populated data into the tables using another .py using sample data generated using Faker. 
-    + In the doctors table, there is a column for phone number. In order to populate correct data into that column, I first had to create a function into order to put the sample data in correct format using the following code: 
+## Database credentials 
+DB_HOST = os.getenv("DB_HOST")
+DB_DATABASE = os.getenv("DB_DATABASE")
+DB_USERNAME = os.getenv("DB_USERNAME")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_PORT = int(os.getenv("DB_PORT", 3306))
+DB_CHARSET = os.getenv("DB_CHARSET", "utf8mb4")
+
+# Connection string and creating the engine 
+connect_args={'ssl':{'fake_flag_to_enable_tls': True}}
+connection_string = (f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}'
+                    f"?charset={DB_CHARSET}")
+engine = create_engine(
+        connection_string,
+        connect_args=connect_args)
+```
+7. For both the azure and gcp MySQL instances, I created the same database name and the same tables in a .py file. The first is a ```doctors``` table that includes data on doctor IDs, their names, the department they work in, and their phone number. The second table is a ```patients``` table and contains patient IDs, their names, date of birth, and their primary doctor ID, which references the doctor ID in the doctors table. I populated data into the tables using another .py using sample data generated using Faker. 
+8. In the doctors table, there is a column for phone number. In order to populate correct data into that column, I first had to create a function into order to put the sample data in correct format using the following code: 
 ```
 def phone_number():
     # Generate random numbers for each part of the phone number
@@ -47,7 +69,7 @@ def phone_number():
 
     format = f"{p1}-{p2}-{p3}"
     return format
-``` 
-    + In the patients table the ```primary_doctor_id``` is a foreign key that references the ```doctor_id``` in the doctors table. In order fo the column to populate with data from the doctors tables, I had to use the following code: ```primary_doctor_id=session.query(Doctor).order_by(func.rand()).first().doctor_id```.
+```
+9. In the patients table the ```primary_doctor_id``` is a foreign key that references the ```doctor_id``` in the doctors table. In order fo the column to populate with data from the doctors tables, I had to use the following code: ```primary_doctor_id=session.query(Doctor).order_by(func.rand()).first().doctor_id```.
  
 
