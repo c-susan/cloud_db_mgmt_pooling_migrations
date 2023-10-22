@@ -22,7 +22,7 @@ class Doctor(Base):
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)
     department = Column(String(50), nullable=False)
-    phone_number = Column(String(15))
+    phone_number = Column(String(12))
 
     doctors = relationship('Patient', back_populates='patients')
 
