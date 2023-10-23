@@ -81,11 +81,12 @@ To set up Alembic for database migrations, I did the following:
 2. Ran ```alembic init migrations``` in the terminal. An **alembic.ini** file and a **migrations** folder appeared in the workspace. 
 3. In the **alembic.ini** file:
     + Located line 63: sqlalchmey.url is where we will edit to connect to the database
-    + Changed line 63 to: ```sqlalchemy.url = mysql+mysqlconnector://username:password@host/database_name``` and included my database credentials. 
-4. In the **env.py** file located in the **migrations** folder:
+    + Changed line 63 to: ```sqlalchemy.url = mysql+mysqlconnector://username:password@host/database_name``` and included my database credentials.
+4. Included **alembic.ini** in my **.gitignore** file to hide my database connection data.  
+5. In the **env.py** file located in the **migrations** folder:
     + uncommented lines 19 & 20 and commented out line 21
-        + In line 19, changed to: ````from <file name> import Base```. Changed <file name> to the name of the file where I created the tables. 
-        + In line 20, changed to: ````target_metadata = Base.metadata```.
+        + In line 19, changed to: ```from <file name> import Base```. Changed ```<file name>``` to the name of the file where I created the tables. 
+        + In line 20, changed to: ```target_metadata = Base.metadata```.
 
 To create a migration: 
 1. Ran ```alembic revision --autogenerate -m "create tables"``` in the terminal. 
