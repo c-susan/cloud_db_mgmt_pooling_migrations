@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySQL Cloud DB</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS for table layout -->
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .table-container .table {
+            flex: 1;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-white-100">
+
+    <header class="bg-purple-500 text-white p-4">
+        <h1 class="text-2xl">MySQL Cloud DB Integration</h1>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a href="/" class="hover:underline">Home</a></li>
+                <li><a href="/doctors" class="hover:underline">About</a></li>
+                <li><a href="/patients" class="hover:underline">Data</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="p-4">
+        {% block content %}
+        <section class="mb-6 table-container">
+            <div class="table">
+                <h2 class="text-xl mb-2">Doctors Table</h2>
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">Doctor ID</th>
+                            <th class="px-4 py-2">First Name</th>
+                            <th class="px-4 py-2">Last Name</th>
+                            <th class="px-4 py-2">Department</th>
+                            <th class="px-4 py-2">Phone Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doctor in data2 %}
+                        <tr>
+                            <td class="border px-4 py-2">{{ doctor.doctor_id }}</td>
+                            <td class="border px-4 py-2">{{ doctor.first_name }}</td>
+                            <td class="border px-4 py-2">{{ doctor.last_name }}</td>
+                            <td class="border px-4 py-2">{{ doctor.department }}</td>
+                            <td class="border px-4 py-2">{{ doctor.phone_num }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table">
+                <h2 class="text-xl mb-2">Patients Table</h2>
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">Patient ID</th>
+                            <th class="px-4 py-2">First Name</th>
+                            <th class="px-4 py-2">Last Name</th>
+                            <th class="px-4 py-2">Date of Birth</th>
+                            <th class="px-4 py-2">Primary Doctor ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in data1 %}
+                        <tr>
+                            <td class="border px-4 py-2">{{ patient.patient_id }}</td>
+                            <td class="border px-4 py-2">{{ patient.first_name }}</td>
+                            <td class="border px-4 py-2">{{ patient.last_name }}</td>
+                            <td class="border px-4 py-2">{{ patient.date_of_birth }}</td>
+                            <td class="border px-4 py-2">{{ patient.primary_doctor_id }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <br/>
+
+        {% endblock %}
+    </main>
+
+    <footer class="bg-purple-500 text-white p-4 mt-6">
+        <p>© 2023 MySQL Cloud DB Integration. All Rights Reserved.</p>
+    </footer>
+</body>
+
+</html>

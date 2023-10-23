@@ -23,6 +23,7 @@ class Doctor(Base):
     last_name = Column(String(50), nullable=False)
     department = Column(String(50), nullable=False)
     phone_number = Column(String(12))
+    extension = Column(String(10)) ## Created new column for alembic migration purposes 
 
     doctors = relationship('Patient', back_populates='patients')
 

@@ -32,8 +32,9 @@ class Patient(Base):
     patient_id = Column(Integer, primary_key=True)
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50))
+    gender = Column(String(10), nullable=False) ## Created new column for alembic migration purposes 
     date_of_birth = Column(Date, nullable=False)
-    primary_doctor_id = Column(Integer, ForeignKey('doctors.doctor_id'), nullable=False)
+    primary_doctor_id = Column(Integer, ForeignKey('doctors.doctor_id'), nullable=False) 
 
     patients = relationship('Doctor', back_populates='doctors')
 

@@ -71,5 +71,4 @@ def phone_number():
     return format
 ```
 9. In the patients table the ```primary_doctor_id``` is a foreign key that references the ```doctor_id``` in the doctors table. In order fo the column to populate with data from the doctors tables, I had to use the following code: ```primary_doctor_id=session.query(Doctor).order_by(func.rand()).first().doctor_id```.
- 
 
