@@ -72,3 +72,26 @@ def phone_number():
 ```
 9. In the patients table the ```primary_doctor_id``` is a foreign key that references the ```doctor_id``` in the doctors table. In order fo the column to populate with data from the doctors tables, I had to use the following code: ```primary_doctor_id=session.query(Doctor).order_by(func.rand()).first().doctor_id```.
 
+## 3. SQLAlchemy and Flask Integration 
+A Flask app was created to connect to the MySQL instance wo display the database tables. A python file was created to contain the flask app code. A templates folder with an html file was created to contain code to display the tables. They can be foound in the code/flask folder. No errors were encountered in this step. 
+
+## 4. Database Migration with Alembic 
+To set up Alembic for database migrations, I did the following: 
+1. To check if alembic was installed/enabled in my google shell environment, I ran ```alembic``` in the terminal. 
+2. Ran ```alembic init migrations``` in the terminal. An **alembic.ini** file and a **migrations** folder appeared in the workspace. 
+3. In the **alembic.ini** file:
+    + Located line 63: sqlalchmey.url is where we will edit to connect to the database
+    + Changed line 63 to: ```sqlalchemy.url = mysql+mysqlconnector://username:password@host/database_name``` and included my database credentials. 
+4. In the **env.py** file located in the **migrations** folder:
+    + uncommented lines 19 & 20 and commented out line 21
+        + In line 19, changed to: ````from <file name> import Base```. Changed <file name> to the name of the file where I created the tables. 
+        + In line 20, changed to: ````target_metadata = Base.metadata```.
+
+To create a migration: 
+1. Ran ```alembic revision --autogenerate -m "create tables"``` in the terminal. 
+2. Ran ```alembic upgrade head``` to run the migrations.
+3. Ran ```alembic upgrade head --sql > migration.sql``` to save it. 
+
+
+
+
