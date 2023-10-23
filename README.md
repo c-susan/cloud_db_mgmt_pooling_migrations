@@ -1,6 +1,12 @@
 # cloud_db_mgmt_pooling_migrations
 HHA504 / Cloud Computing / Assignment 4c / Cloud DB Management
 
+This assignment aims to gain practical experience into managing a cloud-based MySQL database with a focus on implementing connection pooling and performing database migrations.
+
+## This repo contains the following: 
++ A **code** folder contain code for creating the database tables in both gcp and azure and for creating a Flask app to dsiplay the tables.
++ A **screenshots** folder containing screenshots for the entity relationship diagram and the tables displayed on Flask.
++ **README.md** file with an overview of the repo. 
 
 # Documentation
 ## 1. MySQL Cloud Instance Setups
