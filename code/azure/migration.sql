@@ -12,4 +12,3 @@ INSERT INTO alembic_version (version_num) VALUES ('0b5b57f03435');
 ALTER TABLE patients ADD COLUMN gender VARCHAR(10) NOT NULL;
 
 UPDATE alembic_version SET version_num='1d16c6290170' WHERE alembic_version.version_num = '0b5b57f03435';
-
