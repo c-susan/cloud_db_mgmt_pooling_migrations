@@ -12,4 +12,3 @@ INSERT INTO alembic_version (version_num) VALUES ('8a2ccec82ca8');
 ALTER TABLE doctors ADD COLUMN extension VARCHAR(10);
 
 UPDATE alembic_version SET version_num='36a65470de6c' WHERE alembic_version.version_num = '8a2ccec82ca8';
-
